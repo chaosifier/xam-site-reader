@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:SiteReader"
+             mc:Ignorable="d"
+             x:Class="SiteReader.MainPage" Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NegateConverter x:Key="NegateConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout Padding="10">
+            <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Start" FontSize="17"/>
+            <Label Text="{Binding Status}" HorizontalOptions="Center" IsVisible="{Binding Ready}" VerticalOptions="Start" FontSize="14"/>
+
+            <Button HorizontalOptions="Center" IsVisible="{Binding Ready}" TextColor="White" FontSize="14" Command="{Binding ToggleRead}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding Reading}" Value="False">
+                        <Setter Property="Text" Value="Start Reading"/>
+                        <Setter Property="BackgroundColor" Value="Green"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding Reading}" Value="True">
+                        <Setter Property="Text" Value="Stop Reading"/>
+                        <Setter Property="BackgroundColor" Value="Orange"/>
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Start" IsVisible="{Binding Ready}">
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <Label Text="Pitch :" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Slider MaximumTrackColor="Blue" MinimumTrackColor="LightBlue" ThumbColor="Green" Value="{Binding Pitch, Mode=TwoWay}" Maximum="2" Minimum="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <Label Text="Speed :" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Slider MaximumTrackColor="Blue" MinimumTrackColor="LightBlue" ThumbColor="Green" Value="{Binding Speed, Mode=TwoWay}" Maximum="2" Minimum="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                    <Label Text="Volume :" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Slider MaximumTrackColor="Blue" MinimumTrackColor="LightBlue" ThumbColor="Green" Value="{Binding Volume, Mode=TwoWay}" Maximum="2" Minimum="0" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+            <Label Text="{Binding TextToRead}" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand" FontSize="12"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
